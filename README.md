@@ -14,7 +14,7 @@ Team members:
 - Hongmei Zong: hzong@wpi.edu   GitHub: zonghm
 
 Project link: 
-[https://zonghm.github.io/DataVisFinal/index.html]
+[https://zhangjingjun.github.io/InterAxisDataVis/]
 
 
 Screencast video link:
@@ -68,7 +68,7 @@ Finally, we introduce the bipartite chart (bp chart). Bp chart could show the re
 
 Three of our team members both work closely and independently.
 
-- Jingjun are responsible for the Geomap and InterAxis Plot including the demension reduction algorithm of InterAxis Plot. He also did the work for data preprocessing within the javascript.
+ - Jingjun are responsible for the Geomap and InterAxis Plot including the demension reduction algorithm of InterAxis Plot. He also did the work for data preprocessing within the javascript.
 
  - Hongmei mainly figured out how the Bipartite charts can be used in our design and prepare the data sets using python for the Bipartite charts. She also invloved collecting raw data set from website and writing documentations. 
  
