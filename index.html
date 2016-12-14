@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+	<title>Car Data Visualization</title>
+	<link href="https://fonts.googleapis.com/css?family=Exo+2|Aldrich|Bungee+Hairline|Comfortaa|Lato|Open+Sans|Orbitron|Ruda" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="./Non-responsive Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="./Non-responsive Template for Bootstrap_files/non-responsive.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+	<!--<script src="http://d3js.org/topojson.v0.min.js" charset="utf-8"></script>-->
+	<script src = topojson.v0.min.js></script>
+	<script src="http://vizjs.org/viz.v1.1.0.min.js"></script>
+
+
+	<style type="text/css">
+		/*body {*/
+			/*background-image: url("car_bg.jpg");*/
+			/*background-repeat: no-repeat;*/
+			/*background-attachment: fixed;*/
+			/*!*background-color: #ffffff;*!*/
+      		/*color: #000000;*/
+      		/*font-size: large;*/
+      		/*font-family: 'Lato', sans-serif;*/
+      		/*margin-left: auto;*/
+      		/*margin-right: auto;*/
+		/*}*/
+		div.Vis {
+
+			opacity: 0.98;
+			filter: alpha(opacity=98);
+      		color: #000000;
+      		font-size: large;
+      		font-family: sans-serif;
+      		/*width: 1280px;*/
+            width: 1080px;
+      		height: auto;
+      		text-align: center;
+      		margin-left: auto;
+      		margin-right: auto;
+
+		}
+		header {
+			background-color: #ffffff;
+      		color: #000000;
+      		font-size: 48pt;
+      		font-family: sans-serif;
+      		width: 1280px;
+      		height: 80px;
+      		text-align: center;
+      		margin-left: auto;
+      		margin-right: auto;
+      		margin-top: auto;
+      		margin-bottom: auto;
+      		background-color: #808080
+		}
+		path {
+		  stroke: white;
+		  stroke-width: 0.25px;
+		  fill: grey;
+		}
+		#frametable {
+			background-color: #ffffff;
+      		color: #000000;
+      		font-size: large;
+      		font-family: sans-serif;
+      		text-align: center;
+      		margin-left: auto;
+      		margin-right: auto;
+		}
+		div.tooltip {
+			 position: absolute;
+			 text-align: center;
+			 width: 140px;
+			 height: 30px;
+			 padding: 2px;
+			 font: 12px sans-serif;
+			 border: 0px;
+			 border-radius: 8px;
+			 pointer-events: none;
+		 }
+		div.tooltipLarge {
+			position: absolute;
+			text-align: center;
+			width: 140px;
+			height: 60px;
+			padding: 2px;
+			font: 12px sans-serif;
+			border: 0px;
+			border-radius: 8px;
+			pointer-events: none;
+		}
+        #bpchart{
+			font-size: small;
+			font-family: sans-serif;
+		}
+		.mainBars rect{
+			shape-rendering: auto;
+			fill-opacity: 0;
+			stroke-width: 0.5px;
+			stroke: rgb(0, 0, 0);
+			stroke-opacity: 0;
+		}
+        #bpText{
+            font-size: 10pt;
+            font-family:  sans-serif;
+
+        }
+		.subBars{
+			shape-rendering:crispEdges;
+		}
+		.edges{
+			stroke:none;
+			fill-opacity:0.5;
+		}
+		#chart {
+			font-size: medium;
+			font-family: sans-serif;
+
+		}
+
+	</style>
+</head>
+<body>
+<!--<header>Data Visualization For Car</header>-->
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
+            <a class="navbar-brand">Visualizing Car Data</a>
+        </div>
+        <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
+        <div id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a href="#Intro">Intro</a></li>
+                <li><a href="#World">Car In the World</a></li>
+                <li><a href="#InterAxis">Discover Dream Car</a></li>
+                <li><a href="#Detail">Looking into Detail</a></li>
+                <li><a href="#Specs">Specs & Brand</a></li>
+
+            </ul>
+
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<a name="Intro"></a>
+<div class="container">
+
+    <div class="page-header">
+        <h1>Visualizing Car Data</h1>
+        <p class="lead">An Intuitive and Interactive way for Exploring Car Model </p>
+    </div>
+
+    <h2>Intro</h2>
+    <p> Choosing a car is a difficult issue for a lot of people, since there are too many models available. In addition,
+        car model has too many specs to consider.In this data visualization, we attempt to present the car model data
+        in a more clear and interactive way in order to help people to discover and compare car models.
+    </p>
+
+    <!--<h3>Our Goal</h3>-->
+    <!--<p> </p>-->
+
+    <!--<h3>Browsers, scrolling, and fixed elements</h3>-->
+    <!--<p>Non-responsive layouts highlight a key drawback to fixed elements. <strong class="text-danger">Any fixed component, such as a fixed navbar, will not be scrollable when the viewport becomes narrower than the page content.</strong> In other words, given the non-responsive container width of 970px and a viewport of 800px, you'll potentially hide 170px of content.</p>-->
+    <!--<p>There is no way around this as it's default browser behavior. The only solution is a responsive layout or using a non-fixed element.</p>-->
+
+    <!--<h3>Non-responsive grid system</h3>-->
+    <!--<div class="row">-->
+        <!--<div class="col-xs-4">One third</div>-->
+        <!--<div class="col-xs-4">One third</div>-->
+        <!--<div class="col-xs-4">One third</div>-->
+    <!--</div>-->
+
+</div> <!-- /container -->
+
+
+
+<!--<div class = "Vis">-->
+    <!--<div class="textdiv" id="textdiv">-->
+
+    <!--</div>-->
+
+    <div class ="container">
+        <a name="World"></a>
+        <h2>Car In the World</h2>
+        <p> Car Manufacture are all around the world. By mouse over the country, you could find all main manufacture of this
+            country. The color illustrate the different country as well as how many manufacture a country has.
+        </p>
+    </div>
+
+
+    <div class="Vis" id="geodiv">
+    </div>
+
+    <a name="InterAxis"></a>
+    <div class ="container">
+        <h2>Discover your Dream Car</h2>
+             <p> Do not let the specs of car bother you anymore. Just pick your favorite car in the red area. and the car you dislike
+                 in the blue area. The inter axis scatter plot would automatically cluster multiple groups of cars. You will find your
+                 dream car in the top right area !
+             </p>
+        <button type="button" class="btn btn-default" id = "clearInterAxis">Clear Selected Data</button>
+        <button type="button" class="btn btn-default" id = "refreshInterAxis">Refresh the Scatter Plot</button>
+    </div>
+    <div class="Vis" id="svgdiv">
+
+    </div>
+
+    <a name="Detail"></a>
+    <div class ="container">
+     <h2>Looking into detail</h2>
+        <p> Once you choose your favorite car, you could dive into the detail of this car. The radar chart below shows every specs
+        you may concerned. Also, you could add as many peer model as you want to compare them.
+        </p>
+
+        <button type="button" class="btn btn-default" id = "clearButton">Clear Selected Data</button>
+    </div>
+
+    <div class = "Vis" id="body">
+
+        <div id="chart"></div>
+    </div>
+
+
+
+    <a name="Specs"></a>
+    <div class ="container">
+        <h2>Specs & Brand</h2>
+        <p> Every car makers has pros and cons. THe char below would give you a global view of every car maker and the specs of their mdoel.
+            It is a good way to make you mind what car maker to choose.
+        </p>
+
+        <button type="button" class="btn btn-default" id = "BodyButton">Classify As Body Type</button>
+        <button type="button" class="btn btn-default" id = "DriveButton">Classify As Drive Type</button>
+        <button type="button" class="btn btn-default" id = "FuelButton">Classify As Fuel Type</button>
+        <button type="button" class="btn btn-default" id = "YearButton">Classify As Year</button>
+    </div>
+    <div class = "Vis"  id="bpchart">
+
+    </div>
+<!--<table id="frametable">-->
+	<!--<tr>-->
+		<!--<div class="textdiv" id="textdiv">-->
+		<!---->
+		<!--</div>-->
+	<!--</tr>-->
+	<!--<tr>-->
+		<!--<div class="geodiv" id="geodiv">-->
+		<!--</div>-->
+	<!--</tr>-->
+	<!--<tr>-->
+		<!--<div class="svgdiv" id="svgdiv">-->
+		<!--</div>-->
+	<!--</tr>-->
+	<!--<tr>-->
+		<!--<div id="body">-->
+			<!--<button type="button" id = "clearButton">Clear Selected Data</button>-->
+			<!--<div id="chart"></div>-->
+		<!--</div>-->
+	<!--</tr>-->
+	<!--<tr>-->
+        <!--<button type="button" id = "BodyButton">Classify As Body Type</button>-->
+        <!--<button type="button" id = "DriveButton">Classify As Drive Type</button>-->
+        <!--<button type="button" id = "FuelButton">Classify As Fuel Type</button>-->
+        <!--<button type="button" id = "YearButton">Classify As Year</button>-->
+        <!--<div id="bpchart"></div>-->
+	<!--</tr>-->
+<!--</table>-->
+<!--</div>-->
+
+
+<script>
+	var clickPoint;
+
+
+</script>
+
+
+<script type="text/javascript" src="RadarScript.js"></script>
+<script type="text/javascript" src="BpScript.js"></script>
+<script type="text/javascript" src="InterAxisScript.js"></script>
+
+<script src="./Non-responsive Template for Bootstrap_files/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="./Non-responsive Template for Bootstrap_files/bootstrap.min.js"></script>
+
+
+
+
+</body>
+</html>
